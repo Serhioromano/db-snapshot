@@ -1,6 +1,28 @@
 # DB Migration Tool
 
-This tool has some advantagies:
+Nodejs based CLI tool to synchronize DB.
+
+> Right now only works with MySQL
+
+1. No need to create a lot of boring migration files like in traditional migration tools like Phinx.
+2. Use in gulp, webpack to alter your DB to required state.
+
+## How to install
+
+1. Use command
+
+        npm install db-json-sync --save-dev
+
+2. Create `./db` folder in the root of your project
+
+3. Run 
+
+        djs init
+
+    This will create `.djs`
+
+
+This tool has some advantages:
 
 ## Do not have to type anything
 
@@ -24,5 +46,5 @@ class InitialDb extends AbstractMigration
 1. This takes a lot of time. 
 3. If you want to add changes you have to add new file and keep transforming your DB by altering it and you endup with hundreds of files.
 
-
+This CLI tool works differently. You run command line and it created JSON snapshot of your DB. With another command you can restore this snapshot into another DB. It will automaticaly compare and create missed tables, fields or change them and delete all that in not in JSON DB Schema.
 
