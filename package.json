@@ -20,13 +20,10 @@
   },
   "homepage": "https://github.com/Serhioromano/db-snapshot#readme",
   "dependencies": {
-    "co": "^4.6.0",
-    "co-prompt": "^1.0.0",
     "colors": "^1.1.2",
     "commander": "^2.13.0",
     "dateformat": "^3.0.2",
     "inquirer": "^5.0.0",
-    "minimist": "^1.2.0",
     "mysql": "^2.15.0",
     "string-format": "^0.5.0",
     "synchronize": "^2.0.0"

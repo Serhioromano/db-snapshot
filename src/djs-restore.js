@@ -1,7 +1,7 @@
 var program = require('commander');
+var fs = require('fs');
 var h = require('./lib/helper');
 var restore = require('./lib/restore');
-var fs = require('fs');
 
 program
     .description("Restore DB from JSON dump")

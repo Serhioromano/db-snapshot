@@ -1,8 +1,6 @@
 var program = require('commander');
 var h = require('./helper');
 var fs = require('fs');
-var co = require('co');
-var prompt = require('co-prompt');
 var inq = require('inquirer');
 
 program

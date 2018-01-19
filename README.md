@@ -11,40 +11,27 @@ Nodejs based CLI tool to synchronize DB.
 
 1. Use command
 
-        npm install db-json-sync --save-dev
+        npm install serhioromano/db-snapshot --save-dev
 
-2. Create `./db` folder in the root of your project
+2. Run 
 
-3. Run 
+        djs env
 
-        djs init
+    Select dev environment. Please do not forget DB name and table prefix. 
+	
+	This will create `djs.json` file with configuration
 
-    This will create `.djs`
+## Make dump
 
+Run
 
-This tool has some advantages:
+	djs dump -e dev
 
-## Do not have to type anything
+## Restore 
 
-In traditional Migration tools like Phinx, you have to create file and define all fields and such. Here is example.
+Run
 
-```php 
-class InitialDb extends AbstractMigration
-{
-	public function change()
-	{
-		$this->table('user', ['id' => FALSE, 'primary_key' => 'id'])
-			->addColumn('id', 'integer', ['null' => TRUE, 'signed' => FALSE, 'identity' => TRUE, 'limit' => MysqlAdapter::INT_REGULAR])
-			->addColumn('username', 'string', ['null' => FALSE, 'limit' => 45])
-			->addColumn('email', 'string', ['null' => FALSE, 'limit' => 150])
-			->addColumn('password', 'string', ['null' => FALSE, 'limit' => 32])
-            ->save();
-    }
-}
-```
+	djs restore -e dev -tci -p np_
 
-1. This takes a lot of time. 
-3. If you want to add changes you have to add new file and keep transforming your DB by altering it and you endup with hundreds of files.
-
-This CLI tool works differently. You run command line and it created JSON snapshot of your DB. With another command you can restore this snapshot into another DB. It will automaticaly compare and create missed tables, fields or change them and delete all that in not in JSON DB Schema.
+where `np_` is a new prefix. It will create another set of tables.
 
