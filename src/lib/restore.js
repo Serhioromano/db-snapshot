@@ -230,7 +230,8 @@ module.exports = function(options) {
                 kc.COLUMN_NAME, kc.REFERENCED_TABLE_NAME, kc.REFERENCED_COLUMN_NAME \
                 FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE  kc \
                 left join INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc ON rc.CONSTRAINT_NAME = kc.CONSTRAINT_NAME \
-                WHERE kc.TABLE_NAME = '" + new_table_name + "' AND kc.CONSTRAINT_NAME <> 'PRIMARY'";
+                WHERE kc.TABLE_NAME = '" + new_table_name + "' AND kc.CONSTRAINT_NAME <> 'PRIMARY' \
+                AND kc.REFERENCED_TABLE_NAME is not NULL";
                 let constrains = con.query(sql);
                 
                 constrains.forEach(function (constrain) {
