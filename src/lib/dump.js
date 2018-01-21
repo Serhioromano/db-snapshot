@@ -26,15 +26,7 @@ module.exports = function(options) {
         charset: options.collation
     });
     
-    sync(con, 'query', 'connect');
-    
-    
-    con.connect(function (err) {
-        if (err) {
-            h.error("No connection! {0} ({1})".format(err.code, err.sqlMessage));
-            return;
-        }
-    });
+    sync(con, 'query', 'connect', 'end');
     
     con.on('error', function (err) {
         if (err) {
@@ -43,13 +35,20 @@ module.exports = function(options) {
             return;
         }
     });
-
+    
     if(!fs.existsSync(options.dir)) {
         fs.mkdirSync(options.dir);
     }
     
     return sync.fiber(function () {
-
+        
+        con.connect(function (err) {
+            if (err) {
+                h.error("No connection! {0} ({1})".format(err.code, err.sqlMessage));
+                return;
+            }
+        });
+        
         let tables = con.query("SHOW TABLE STATUS LIKE '" + options.prefix + "%'");
 
         tables.forEach(function (v) {
@@ -123,7 +122,5 @@ module.exports = function(options) {
         h.message('Dump was create successfully ' + file.bold);
 
         con.end();
-
-        process.exit();
     });
 }

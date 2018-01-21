@@ -1,5 +1,5 @@
 var program = require('commander');
-var h = require('./helper');
+var h = require('./lib/helper');
 var fs = require('fs');
 var inq = require('inquirer');
 

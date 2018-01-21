@@ -25,6 +25,7 @@
     "dateformat": "^3.0.2",
     "inquirer": "^5.0.0",
     "mysql": "^2.15.0",
+    "mysql2": "^1.5.1",
     "string-format": "^0.5.0",
     "synchronize": "^2.0.0"
   }

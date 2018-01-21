@@ -19,14 +19,8 @@ module.exports = function(options) {
         charset: options.collation
     });
     
-    sync(con, 'query', 'connect');
+    sync(con, 'query', 'connect', 'end');
     
-    con.connect(function (err) {
-        if (err) {
-            h.error("No connection! {0} ({1})".format(err.code, err.sqlMessage));
-            return;
-        }
-    });
     
     con.on('error', function (err) {
         if (err) {
@@ -35,8 +29,16 @@ module.exports = function(options) {
             return;
         }
     });
-
+    
     return sync.fiber(function () {
+        
+        con.connect(function (err) {
+            if (err) {
+                h.error("No connection! {0} ({1})".format(err.code, err.sqlMessage));
+                return;
+            }
+        });
+
         let file = options.file ? options.file :  options.dir + '/{0}dump.json'.format(options.prefix);
 
         if (!fs.existsSync(file)) {
@@ -261,8 +263,6 @@ module.exports = function(options) {
         h.message('Finished!');
         
         con.end();
-        
-        process.exit();
     });
 }
 
